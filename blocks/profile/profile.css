@@ -1,0 +1,9 @@
+.profile {
+  padding-left: 19px;
+  padding-right: 19px;
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}

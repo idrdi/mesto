@@ -1,0 +1,15 @@
+.profile__add-button {
+  width: 100%;
+  min-height: 50px;
+  align-self: center;
+  box-sizing: border-box;
+  padding: 0;
+  border: 1px solid #FFF;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  background-image: url(../../../images/add-button.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
