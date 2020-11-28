@@ -1,11 +1,11 @@
-.footer {
+.content {
   padding-left: 19px;
   padding-right: 19px;
-  padding-bottom: 36px;
 }
 
+
 @media (min-width: 918px) {
-  .footer {
+  .content {
     padding-left: 0;
     padding-right: 0;
   }

@@ -1,9 +1,14 @@
 .profile {
-  padding-left: 19px;
-  padding-right: 19px;
   margin-bottom: 36px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+@media (min-width: 768px) {
+  .profile {
+    flex-direction: row;
+    margin-bottom: 50px;
+  }
 }

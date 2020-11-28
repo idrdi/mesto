@@ -1,9 +1,20 @@
 .page {
   min-width: 320px;
-  max-width: 918px;
   margin: 0 auto;
   padding-top: 28px;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-top: 45px;
+  }
+}
+
+@media (min-width: 918px) {
+  .page {
+    max-width: 880px;
+  }
 }
