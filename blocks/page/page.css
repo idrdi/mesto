@@ -2,9 +2,6 @@
   min-width: 320px;
   margin: 0 auto;
   padding-top: 28px;
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 @media (min-width: 768px) {
