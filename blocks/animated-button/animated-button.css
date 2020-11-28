@@ -1,0 +1,9 @@
+@media (min-width: 1024px) {
+  .animated-button {
+    transition: opacity .3s ease-out;
+  }
+
+  .animated-button:hover {
+    opacity: 0.6;
+  }
+}
