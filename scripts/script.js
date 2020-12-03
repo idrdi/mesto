@@ -10,11 +10,11 @@ let editProfileForm = document.querySelector('form[name="edit-profile"]');
 function showPopup() {
   usernameInput.value = profileNameElement.textContent;
   aboutInput.value = profileAboutElement.textContent;
-  popup.classList.remove('popup_disabled');
+  popup.classList.add('popup_opened');
 }
 
 function closePopup() {
-  popup.classList.add('popup_disabled');
+  popup.classList.remove('popup_opened');
 }
 
 function formSubmitHandler(evt) {
@@ -23,7 +23,7 @@ function formSubmitHandler(evt) {
   profileNameElement.textContent = usernameInput.value;
   profileAboutElement.textContent = aboutInput.value;
 
-  popup.classList.add('popup_disabled');
+  popup.classList.remove('popup_opened');
 }
 
 editProfileButton.addEventListener('click', showPopup);

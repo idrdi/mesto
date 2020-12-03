@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   padding-left: 19px;
   padding-right: 19px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
