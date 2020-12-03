@@ -7,10 +7,6 @@ let usernameInput = document.querySelector('input[name="username"]');
 let aboutInput = document.querySelector('input[name="about"]');
 let editProfileForm = document.querySelector('form[name="edit-profile"]');
 
-editProfileButton.addEventListener('click', showPopup)
-closePopupButton.addEventListener('click', closePopup)
-editProfileForm.addEventListener('submit', formSubmitHandler);
-
 function showPopup() {
   usernameInput.value = profileNameElement.textContent;
   aboutInput.value = profileAboutElement.textContent;
@@ -29,3 +25,7 @@ function formSubmitHandler(evt) {
 
   popup.classList.add('popup_disabled');
 }
+
+editProfileButton.addEventListener('click', showPopup);
+closePopupButton.addEventListener('click', closePopup);
+editProfileForm.addEventListener('submit', formSubmitHandler);
