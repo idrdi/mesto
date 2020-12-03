@@ -1,11 +1,11 @@
-const editProfileButton = document.querySelector('.profile__edit-button');
-const closePopupButton = document.querySelector('.popup__close-button');
-const popup = document.querySelector('.popup');
-const profileNameElement = document.querySelector('.profile__name');
-const profileAboutElement = document.querySelector('.profile__about');
-const usernameInput = document.querySelector('input[name="username"]');
-const aboutInput = document.querySelector('input[name="about"]');
-const editProfileForm = document.querySelector('form[name="edit-profile"]');
+let editProfileButton = document.querySelector('.profile__edit-button');
+let closePopupButton = document.querySelector('.popup__close-button');
+let popup = document.querySelector('.popup');
+let profileNameElement = document.querySelector('.profile__name');
+let profileAboutElement = document.querySelector('.profile__about');
+let usernameInput = document.querySelector('input[name="username"]');
+let aboutInput = document.querySelector('input[name="about"]');
+let editProfileForm = document.querySelector('form[name="edit-profile"]');
 
 editProfileButton.addEventListener('click', showPopup)
 closePopupButton.addEventListener('click', closePopup)
