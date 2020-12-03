@@ -15,7 +15,6 @@
     margin-bottom: 0;
     grid-template-columns: 294px 1fr;
     column-gap: 18px;
-    row-gap: 7px;
     grid-template-areas:
       'name edit-button'
       'about about';
