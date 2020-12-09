@@ -1,4 +1,4 @@
-.elements {
+.cards {
   margin-bottom: 48px;
   display: grid;
   grid-template-columns: repeat(auto-fit, 282px);
@@ -8,7 +8,7 @@
 }
 
 @media (min-width: 768px) {
-  .elements {
+  .cards {
     margin-bottom: 66px;
   }
 }
