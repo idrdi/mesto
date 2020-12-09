@@ -23,51 +23,7 @@
         </div>
         <button class="profile__add-button animated-button" type="button" aria-label="Добавить"></button>
       </section>
-      <section class="cards">
-        <article class="card">
-          <img class="card__image" src="./images/karachevsk1.jpg" alt="изображение">
-          <div class="card__container">
-            <h2 class="card__title">Карачаево-Черкеск</h2>
-            <button class="card__like-button animated-button" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/elbrus1.jpg" alt="изображение">
-          <div class="card__container">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__like-button animated-button" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/dombay1.jpg" alt="изображение">
-          <div class="card__container">
-            <h2 class="card__title">Домбай</h2>
-            <button class="card__like-button animated-button" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/elbrus1.jpg" alt="изображение">
-          <div class="card__container">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__like-button animated-button" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/dombay1.jpg" alt="изображение">
-          <div class="card__container">
-            <h2 class="card__title">Домбай</h2>
-            <button class="card__like-button animated-button" type="button" aria-label="Нравится"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/karachevsk1.jpg" alt="изображение">
-          <div class="card__container">
-            <h2 class="card__title">Карачаево-Черкеск</h2>
-            <button class="card__like-button card__like-button_active animated-button" type="button"
-              aria-label="Нравится"></button>
-          </div>
-        </article>
-      </section>
+      <section class="cards"></section>
     </main>
     <footer class="footer">
       <p class="footer__text">&copy; 2020 Mesto Russia</p>
@@ -82,6 +38,15 @@
       <button class="popup__submit-button animated-button" type="submit">Сохранить</button>
     </form>
   </div>
+  <template id="cardTemplate">
+    <article class="card">
+      <img class="card__image" src="" alt="изображение">
+      <div class="card__container">
+        <h2 class="card__title"></h2>
+        <button class="card__like-button animated-button" type="button" aria-label="Нравится"></button>
+      </div>
+    </article>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 
