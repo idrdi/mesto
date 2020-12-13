@@ -39,6 +39,26 @@ editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
 const cardTemplate = document.querySelector('#cardTemplate').content;
 const cardsContainer = document.querySelector('.cards');
 
+function likeButtonClickHandler(evt) {
+  evt.target.classList.toggle('card__like-button_active');
+}
+
+function removeButtonClickHandler(evt) {
+  const cardElement = evt.target.closest('.card');
+
+  removeCard(cardElement);
+}
+
+function removeCard(cardElement) {
+  const likeButton = cardElement.querySelector('.card__like-button');
+  likeButton.removeEventListener('click', likeButtonClickHandler);
+
+  const removeButton = cardElement.querySelector('.card__remove-button');
+  removeButton.removeEventListener('click', removeButtonClickHandler);
+
+  cardElement.remove();
+}
+
 function addCard(name, imageUrl) {
   const cardElement = cardTemplate.cloneNode(true);
 
@@ -49,7 +69,10 @@ function addCard(name, imageUrl) {
   cardImage.src = imageUrl;
 
   const likeButton = cardElement.querySelector('.card__like-button');
-  likeButton.addEventListener('click', () => likeButton.classList.toggle('card__like-button_active'));
+  likeButton.addEventListener('click', likeButtonClickHandler);
+
+  const removeButton = cardElement.querySelector('.card__remove-button');
+  removeButton.addEventListener('click', removeButtonClickHandler);
 
   cardsContainer.prepend(cardElement);
 }
