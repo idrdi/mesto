@@ -36,6 +36,23 @@ editProfileButton.addEventListener('click', showEditProfilePopup);
 closeEditProfilePopupButton.addEventListener('click', () => closePopup(editProfilePopup));
 editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
 
+let cardPreviewPopup = document.querySelector('.card-preview-popup');
+let closeCardPreviewPopupButton = cardPreviewPopup.querySelector('.popup__close-button');
+
+function showCard(cardElement) {
+  const cardImage = cardElement.querySelector('.card__image');
+  const popupImage = cardPreviewPopup.querySelector('.card-preview-popup__image');
+  popupImage.src = cardImage.src;
+
+  const cardTitle = cardElement.querySelector('.card__title');
+  const popupDescription = cardPreviewPopup.querySelector('.card-preview-popup__description');
+  popupDescription.textContent = cardTitle.textContent;
+
+  showPopup(cardPreviewPopup);
+}
+
+closeCardPreviewPopupButton.addEventListener('click', () => closePopup(cardPreviewPopup));
+
 const cardTemplate = document.querySelector('#cardTemplate').content;
 const cardsContainer = document.querySelector('.cards');
 
@@ -45,8 +62,12 @@ function likeButtonClickHandler(evt) {
 
 function removeButtonClickHandler(evt) {
   const cardElement = evt.target.closest('.card');
-
   removeCard(cardElement);
+}
+
+function imageClickHandler(evt) {
+  const cardElement = evt.target.closest('.card');
+  showCard(cardElement);
 }
 
 function removeCard(cardElement) {
@@ -67,6 +88,7 @@ function addCard(name, imageUrl) {
 
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.src = imageUrl;
+  cardImage.addEventListener('click', imageClickHandler);
 
   const likeButton = cardElement.querySelector('.card__like-button');
   likeButton.addEventListener('click', likeButtonClickHandler);
