@@ -48,6 +48,9 @@ function addCard(name, imageUrl) {
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.src = imageUrl;
 
+  const likeButton = cardElement.querySelector('.card__like-button');
+  likeButton.addEventListener('click', () => likeButton.classList.toggle('card__like-button_active'));
+
   cardsContainer.prepend(cardElement);
 }
 
