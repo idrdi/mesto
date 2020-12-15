@@ -85,21 +85,28 @@ function removeCard(cardElement) {
   cardElement.remove();
 }
 
-function addCard(name, imageUrl) {
-  const cardElement = cardTemplate.cloneNode(true);
+function createCard(name, imageUrl) {
+  const result = cardTemplate.cloneNode(true);
 
-  const cardTitle = cardElement.querySelector('.card__title');
+  const cardTitle = result.querySelector('.card__title');
   cardTitle.textContent = name;
 
-  const cardImage = cardElement.querySelector('.card__image');
+  const cardImage = result.querySelector('.card__image');
   cardImage.src = imageUrl;
+  cardImage.alt = name;
   cardImage.addEventListener('click', handleCardImageClick);
 
-  const likeButton = cardElement.querySelector('.card__like-button');
+  const likeButton = result.querySelector('.card__like-button');
   likeButton.addEventListener('click', handleCardLikeButtonClick);
 
-  const removeButton = cardElement.querySelector('.card__remove-button');
+  const removeButton = result.querySelector('.card__remove-button');
   removeButton.addEventListener('click', handleCardRemoveButtonClick);
+
+  return result;
+}
+
+function addCard(name, imageUrl) {
+  const cardElement = createCard(name, imageUrl);
 
   cardsContainer.prepend(cardElement);
 }
