@@ -1,11 +1,3 @@
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-}
-
-function showPopup(popup) {
-  popup.classList.add('popup_opened');
-}
-
 const editProfileButton = document.querySelector('.profile__edit-button');
 const profileNameElement = document.querySelector('.profile__name');
 const profileAboutElement = document.querySelector('.profile__about');
@@ -15,6 +7,28 @@ const closeEditProfilePopupButton = editProfilePopup.querySelector('.popup__clos
 const usernameInput = editProfilePopup.querySelector('input[name="username"]');
 const aboutInput = editProfilePopup.querySelector('input[name="about"]');
 const editProfileForm = editProfilePopup.querySelector('form[name="edit-profile"]');
+
+const cardPreviewPopup = document.querySelector('.card-preview-popup');
+const closeCardPreviewPopupButton = cardPreviewPopup.querySelector('.popup__close-button');
+
+const addCardButton = document.querySelector('.profile__add-button');
+
+const addCardPopup = document.querySelector('.add-card-popup');
+const closeAddCardPopupButton = addCardPopup.querySelector('.popup__close-button');
+const cardNameInput = addCardPopup.querySelector('input[name="name"]');
+const cardLinkInput = addCardPopup.querySelector('input[name="link"]');
+const addCardForm = addCardPopup.querySelector('form[name="add-card"]');
+
+const cardTemplate = document.querySelector('#cardTemplate').content;
+const cardsContainer = document.querySelector('.cards');
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+function showPopup(popup) {
+  popup.classList.add('popup_opened');
+}
 
 function showEditProfilePopup() {
   usernameInput.value = profileNameElement.textContent;
@@ -32,13 +46,6 @@ function editProfileFormSubmitHandler(evt) {
   closePopup(editProfilePopup);
 }
 
-editProfileButton.addEventListener('click', showEditProfilePopup);
-closeEditProfilePopupButton.addEventListener('click', () => closePopup(editProfilePopup));
-editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
-
-const cardPreviewPopup = document.querySelector('.card-preview-popup');
-const closeCardPreviewPopupButton = cardPreviewPopup.querySelector('.popup__close-button');
-
 function showCard(cardElement) {
   const cardImage = cardElement.querySelector('.card__image');
   const popupImage = cardPreviewPopup.querySelector('.card-preview-popup__image');
@@ -50,11 +57,6 @@ function showCard(cardElement) {
 
   showPopup(cardPreviewPopup);
 }
-
-closeCardPreviewPopupButton.addEventListener('click', () => closePopup(cardPreviewPopup));
-
-const cardTemplate = document.querySelector('#cardTemplate').content;
-const cardsContainer = document.querySelector('.cards');
 
 function likeButtonClickHandler(evt) {
   evt.target.classList.toggle('card__like-button_active');
@@ -102,14 +104,6 @@ function addCard(name, imageUrl) {
   cardsContainer.prepend(cardElement);
 }
 
-const addCardButton = document.querySelector('.profile__add-button');
-
-const addCardPopup = document.querySelector('.add-card-popup');
-const closeAddCardPopupButton = addCardPopup.querySelector('.popup__close-button');
-const cardNameInput = addCardPopup.querySelector('input[name="name"]');
-const cardLinkInput = addCardPopup.querySelector('input[name="link"]');
-const addCardForm = addCardPopup.querySelector('form[name="add-card"]');
-
 function addCardFormSubmitHandler(evt) {
   evt.preventDefault();
 
@@ -121,12 +115,18 @@ function addCardFormSubmitHandler(evt) {
   closePopup(addCardPopup);
 }
 
-addCardButton.addEventListener('click', () => showPopup(addCardPopup));
-closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
-addCardForm.addEventListener('submit', addCardFormSubmitHandler);
-
 function addInitialCards() {
   initialCards.forEach(cardInfo => addCard(cardInfo.name, cardInfo.link));
 }
+
+editProfileButton.addEventListener('click', showEditProfilePopup);
+closeEditProfilePopupButton.addEventListener('click', () => closePopup(editProfilePopup));
+editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
+
+closeCardPreviewPopupButton.addEventListener('click', () => closePopup(cardPreviewPopup));
+
+addCardButton.addEventListener('click', () => showPopup(addCardPopup));
+closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
+addCardForm.addEventListener('submit', addCardFormSubmitHandler);
 
 addInitialCards();
