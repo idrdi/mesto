@@ -116,8 +116,7 @@ function handleAddCardFormSubmit(evt) {
 
   addCard(cardNameInput.value, cardLinkInput.value);
 
-  cardNameInput.value = '';
-  cardLinkInput.value = '';
+  addCardForm.reset();
 
   closePopup(addCardPopup);
 }
