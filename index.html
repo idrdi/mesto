@@ -17,8 +17,7 @@
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто
-          </h1>
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button animated-button" type="button" aria-label="Редактировать"></button>
           <p class="profile__about">Исследователь океана</p>
         </div>
@@ -32,20 +31,21 @@
     <script> </script>
   </div>
   <div class="popup edit-profile-popup">
-    <form class="popup__container" name="edit-profile">
+    <form class="popup__container popup__container_type_form" name="edit-profile">
       <button class="popup__close-button animated-button" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <input type="text" name="username" value="" placeholder="" class="popup__field">
-      <input type="text" name="about" value="" placeholder="" class="popup__field">
+      <input type="text" name="username" value="" placeholder="" class="popup__field popup__field_type_username">
+      <input type="text" name="about" value="" placeholder="" class="popup__field popup__field_type_about">
       <button class="popup__submit-button animated-button" type="submit">Сохранить</button>
     </form>
   </div>
   <div class="popup add-card-popup">
-    <form class="popup__container" name="add-card">
+    <form class="popup__container popup__container_type_form" name="add-card">
       <button class="popup__close-button animated-button" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Новое место</h2>
-      <input type="text" name="name" value="" placeholder="Название" class="popup__field">
-      <input type="text" name="link" value="" placeholder="Ссылка на картинку" class="popup__field">
+      <input type="text" name="name" value="" placeholder="Название" class="popup__field popup__field_type_name">
+      <input type="text" name="link" value="" placeholder="Ссылка на картинку"
+        class="popup__field popup__field_type_link">
       <button class="popup__submit-button animated-button" type="submit">Создать</button>
     </form>
   </div>
@@ -59,7 +59,7 @@
   <template id="cardTemplate">
     <article class="card">
       <div class="card__image-wrapper">
-        <img class="card__image" src="#" alt="Изображение на краточке"">
+        <img class="card__image" src="#" alt="Изображение на краточке">
       </div>
       <div class=" card__container">
         <h2 class="card__title"></h2>

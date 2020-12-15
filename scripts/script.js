@@ -4,9 +4,9 @@ const profileAboutElement = document.querySelector('.profile__about');
 
 const editProfilePopup = document.querySelector('.edit-profile-popup');
 const closeEditProfilePopupButton = editProfilePopup.querySelector('.popup__close-button');
-const usernameInput = editProfilePopup.querySelector('input[name="username"]');
-const aboutInput = editProfilePopup.querySelector('input[name="about"]');
-const editProfileForm = editProfilePopup.querySelector('form[name="edit-profile"]');
+const usernameInput = editProfilePopup.querySelector('.popup__field_type_username');
+const aboutInput = editProfilePopup.querySelector('.popup__field_type_about');
+const editProfileForm = editProfilePopup.querySelector('.popup__container_type_form');
 
 const cardPreviewPopup = document.querySelector('.card-preview-popup');
 const closeCardPreviewPopupButton = cardPreviewPopup.querySelector('.popup__close-button');
@@ -15,9 +15,9 @@ const addCardButton = document.querySelector('.profile__add-button');
 
 const addCardPopup = document.querySelector('.add-card-popup');
 const closeAddCardPopupButton = addCardPopup.querySelector('.popup__close-button');
-const cardNameInput = addCardPopup.querySelector('input[name="name"]');
-const cardLinkInput = addCardPopup.querySelector('input[name="link"]');
-const addCardForm = addCardPopup.querySelector('form[name="add-card"]');
+const cardNameInput = addCardPopup.querySelector('.popup__field_type_name');
+const cardLinkInput = addCardPopup.querySelector('.popup__field_type_link');
+const addCardForm = addCardPopup.querySelector('.popup__container_type_form');
 
 const cardTemplate = document.querySelector('#cardTemplate').content;
 const cardsContainer = document.querySelector('.cards');
