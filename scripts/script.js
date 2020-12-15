@@ -10,6 +10,8 @@ const editProfileForm = editProfilePopup.querySelector('.popup__container_type_f
 
 const cardPreviewPopup = document.querySelector('.card-preview-popup');
 const closeCardPreviewPopupButton = cardPreviewPopup.querySelector('.popup__close-button');
+const cardPreviewImage = cardPreviewPopup.querySelector('.card-preview-popup__image');
+const cardPreviewDescription = cardPreviewPopup.querySelector('.card-preview-popup__description');
 
 const addCardButton = document.querySelector('.profile__add-button');
 
@@ -46,14 +48,12 @@ function handleEditProfileFormSubmit(evt) {
   closePopup(editProfilePopup);
 }
 
-function showCard(cardElement) {
-  const cardImage = cardElement.querySelector('.card__image');
-  const popupImage = cardPreviewPopup.querySelector('.card-preview-popup__image');
-  popupImage.src = cardImage.src;
+function showCard(cardElement, cardImage) {
+  cardPreviewImage.src = cardImage.src;
+  cardPreviewImage.alt = cardImage.alt;
 
   const cardTitle = cardElement.querySelector('.card__title');
-  const popupDescription = cardPreviewPopup.querySelector('.card-preview-popup__description');
-  popupDescription.textContent = cardTitle.textContent;
+  cardPreviewDescription.textContent = cardTitle.textContent;
 
   showPopup(cardPreviewPopup);
 }
@@ -69,7 +69,7 @@ function handleCardRemoveButtonClick(evt) {
 
 function handleCardImageClick(evt) {
   const cardElement = evt.target.closest('.card');
-  showCard(cardElement);
+  showCard(cardElement, evt.target);
 }
 
 function removeCard(cardElement) {
