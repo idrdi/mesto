@@ -37,7 +37,7 @@ function showEditProfilePopup() {
   showPopup(editProfilePopup);
 }
 
-function editProfileFormSubmitHandler(evt) {
+function handleEditProfileFormSubmit(evt) {
   evt.preventDefault();
 
   profileNameElement.textContent = usernameInput.value;
@@ -58,29 +58,29 @@ function showCard(cardElement) {
   showPopup(cardPreviewPopup);
 }
 
-function likeButtonClickHandler(evt) {
+function handleCardLikeButtonClick(evt) {
   evt.target.classList.toggle('card__like-button_active');
 }
 
-function removeButtonClickHandler(evt) {
+function handleCardRemoveButtonClick(evt) {
   const cardElement = evt.target.closest('.card');
   removeCard(cardElement);
 }
 
-function imageClickHandler(evt) {
+function handleCardImageClick(evt) {
   const cardElement = evt.target.closest('.card');
   showCard(cardElement);
 }
 
 function removeCard(cardElement) {
   const cardImage = cardElement.querySelector('.card__image');
-  cardImage.removeEventListener('click', imageClickHandler);
+  cardImage.removeEventListener('click', handleCardImageClick);
 
   const likeButton = cardElement.querySelector('.card__like-button');
-  likeButton.removeEventListener('click', likeButtonClickHandler);
+  likeButton.removeEventListener('click', handleCardLikeButtonClick);
 
   const removeButton = cardElement.querySelector('.card__remove-button');
-  removeButton.removeEventListener('click', removeButtonClickHandler);
+  removeButton.removeEventListener('click', handleCardRemoveButtonClick);
 
   cardElement.remove();
 }
@@ -93,18 +93,18 @@ function addCard(name, imageUrl) {
 
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.src = imageUrl;
-  cardImage.addEventListener('click', imageClickHandler);
+  cardImage.addEventListener('click', handleCardImageClick);
 
   const likeButton = cardElement.querySelector('.card__like-button');
-  likeButton.addEventListener('click', likeButtonClickHandler);
+  likeButton.addEventListener('click', handleCardLikeButtonClick);
 
   const removeButton = cardElement.querySelector('.card__remove-button');
-  removeButton.addEventListener('click', removeButtonClickHandler);
+  removeButton.addEventListener('click', handleCardRemoveButtonClick);
 
   cardsContainer.prepend(cardElement);
 }
 
-function addCardFormSubmitHandler(evt) {
+function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
 
   addCard(cardNameInput.value, cardLinkInput.value);
@@ -121,12 +121,12 @@ function addInitialCards() {
 
 editProfileButton.addEventListener('click', showEditProfilePopup);
 closeEditProfilePopupButton.addEventListener('click', () => closePopup(editProfilePopup));
-editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
+editProfileForm.addEventListener('submit', handleEditProfileFormSubmit);
 
 closeCardPreviewPopupButton.addEventListener('click', () => closePopup(cardPreviewPopup));
 
 addCardButton.addEventListener('click', () => showPopup(addCardPopup));
 closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
-addCardForm.addEventListener('submit', addCardFormSubmitHandler);
+addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 
 addInitialCards();
