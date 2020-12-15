@@ -7,6 +7,9 @@
   line-height: 17px;
   text-align: center;
   color: #FFFFFF;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
