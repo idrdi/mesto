@@ -40,11 +40,12 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__title/popup__title.css);
-@import url(../blocks/popup/__label/popup__label.css);
 @import url(../blocks/popup/__field/popup__field.css);
-@import url(../blocks/popup/__field/_state/popup__field_state_invalid.css);
+@import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__input/_state/popup__input_state_invalid.css);
 @import url(../blocks/popup/__error/popup__error.css);
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
+@import url(../blocks/popup/__submit-button/_disabled/popup__submit-button_disabled.css);
 
 @import url(../blocks/card-preview-popup/card-preview-popup.css);
 @import url(../blocks/card-preview-popup/__container/card-preview-popup__container.css);

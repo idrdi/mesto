@@ -2,9 +2,13 @@
   position: absolute;
   top: 32px;
   left: 0;
+  width: 100%;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;
   color: #FF0000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

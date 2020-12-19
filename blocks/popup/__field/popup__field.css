@@ -1,7 +1,10 @@
 .popup__field {
-  padding-bottom: 8px;
-  border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  font-size: 14px;
-  line-height: 17px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.popup__field:last-of-type {
+  margin-bottom: 45px;
 }

@@ -4,8 +4,8 @@ const profileAboutElement = document.querySelector('.profile__about');
 
 const editProfilePopup = document.querySelector('.edit-profile-popup');
 const closeEditProfilePopupButton = editProfilePopup.querySelector('.popup__close-button');
-const usernameInput = editProfilePopup.querySelector('.popup__field_type_username');
-const aboutInput = editProfilePopup.querySelector('.popup__field_type_about');
+const usernameInput = editProfilePopup.querySelector('.popup__input_type_username');
+const aboutInput = editProfilePopup.querySelector('.popup__input_type_about');
 const editProfileForm = editProfilePopup.querySelector('.popup__container_type_form');
 
 const cardPreviewPopup = document.querySelector('.card-preview-popup');
@@ -17,8 +17,8 @@ const addCardButton = document.querySelector('.profile__add-button');
 
 const addCardPopup = document.querySelector('.add-card-popup');
 const closeAddCardPopupButton = addCardPopup.querySelector('.popup__close-button');
-const cardNameInput = addCardPopup.querySelector('.popup__field_type_name');
-const cardLinkInput = addCardPopup.querySelector('.popup__field_type_link');
+const cardNameInput = addCardPopup.querySelector('.popup__input_type_name');
+const cardLinkInput = addCardPopup.querySelector('.popup__input_type_link');
 const addCardForm = addCardPopup.querySelector('.popup__container_type_form');
 
 const cardTemplate = document.querySelector('#cardTemplate').content;
@@ -33,10 +33,13 @@ function showPopup(popup) {
 }
 
 function showEditProfilePopup() {
+  updateProfileDataOnEditForm();
+  showPopup(editProfilePopup);
+}
+
+function updateProfileDataOnEditForm() {
   usernameInput.value = profileNameElement.textContent;
   aboutInput.value = profileAboutElement.textContent;
-
-  showPopup(editProfilePopup);
 }
 
 function handleEditProfileFormSubmit(evt) {
@@ -136,3 +139,5 @@ closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup)
 addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 
 addInitialCards();
+
+updateProfileDataOnEditForm();
