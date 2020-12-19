@@ -24,6 +24,10 @@ const addCardForm = addCardPopup.querySelector('.popup__container_type_form');
 const cardTemplate = document.querySelector('#cardTemplate').content;
 const cardsContainer = document.querySelector('.cards');
 
+const popups = document.querySelectorAll('.popup');
+
+const root = document.querySelector('.main');
+
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
@@ -137,6 +141,24 @@ closeCardPreviewPopupButton.addEventListener('click', () => closePopup(cardPrevi
 addCardButton.addEventListener('click', () => showPopup(addCardPopup));
 closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
 addCardForm.addEventListener('submit', handleAddCardFormSubmit);
+
+popups.forEach(popup => {
+  popup.addEventListener('click', evt => {
+    if (evt.target == popup) {
+      closePopup(popup);
+    }
+  });
+});
+
+
+root.addEventListener('keydown', evt => {
+  if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened');
+    if (activePopup) {
+      closePopup(activePopup);
+    }
+  }
+});
 
 addInitialCards();
 
