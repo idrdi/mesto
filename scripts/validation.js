@@ -2,12 +2,12 @@ function enableValidation(config) {
   const forms = document.querySelectorAll(config.formSelector);
   forms.forEach(form => {
     const submitButton = form.querySelector(config.submitButtonSelector);
-    enableInputsValidation(form, submitButton, config);
+    setEventListeners(form, submitButton, config);
     setButtonState(submitButton, form.checkValidity(), config)
   });
 }
 
-function enableInputsValidation(form, submitButton, config) {
+function setEventListeners(form, submitButton, config) {
   const inputs = form.querySelectorAll(config.inputSelector);
 
   inputs.forEach((input) => {

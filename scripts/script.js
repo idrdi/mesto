@@ -17,6 +17,7 @@ const addCardButton = document.querySelector('.profile__add-button');
 
 const addCardPopup = document.querySelector('.add-card-popup');
 const closeAddCardPopupButton = addCardPopup.querySelector('.popup__close-button');
+const submitAddCardPopupButton = addCardPopup.querySelector('.popup__submit-button');
 const cardNameInput = addCardPopup.querySelector('.popup__input_type_name');
 const cardLinkInput = addCardPopup.querySelector('.popup__input_type_link');
 const addCardForm = addCardPopup.querySelector('.popup__container_type_form');
@@ -125,7 +126,15 @@ function handleAddCardFormSubmit(evt) {
 
   addCardForm.reset();
 
+  disableSubmitButton(submitAddCardPopupButton);
+
   closePopup(addCardPopup);
+}
+
+function disableSubmitButton(button) {
+  button.classList.add('popup__submit-button_disabled');
+  button.classList.remove('animated-button');
+  button.disabled = true;
 }
 
 function addInitialCards() {
