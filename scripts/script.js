@@ -29,12 +29,27 @@ const popups = document.querySelectorAll('.popup');
 
 const root = document.querySelector('.main');
 
+function handleKeyDown(evt) {
+  if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened');
+    closePopup(activePopup);
+  }
+}
+
+function handlePopupClick(evt) {
+  closePopup(evt.target);
+}
+
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  popup.removeEventListener('click', handlePopupClick);
+  root.removeEventListener('keydown', handleKeyDown);
 }
 
 function showPopup(popup) {
   popup.classList.add('popup_opened');
+  popup.addEventListener('click', handlePopupClick);
+  root.addEventListener('keydown', handleKeyDown);
 }
 
 function showEditProfilePopup() {
@@ -150,24 +165,6 @@ closeCardPreviewPopupButton.addEventListener('click', () => closePopup(cardPrevi
 addCardButton.addEventListener('click', () => showPopup(addCardPopup));
 closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
 addCardForm.addEventListener('submit', handleAddCardFormSubmit);
-
-popups.forEach(popup => {
-  popup.addEventListener('click', evt => {
-    if (evt.target == popup) {
-      closePopup(popup);
-    }
-  });
-});
-
-
-root.addEventListener('keydown', evt => {
-  if (evt.key === 'Escape') {
-    const activePopup = document.querySelector('.popup_opened');
-    if (activePopup) {
-      closePopup(activePopup);
-    }
-  }
-});
 
 addInitialCards();
 
