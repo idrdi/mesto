@@ -1,3 +1,5 @@
+import Card from './Card.js';
+
 const editProfileButton = document.querySelector('.profile__edit-button');
 const profileNameElement = document.querySelector('.profile__name');
 const profileAboutElement = document.querySelector('.profile__about');
@@ -22,12 +24,10 @@ const cardNameInput = addCardPopup.querySelector('.popup__input_type_name');
 const cardLinkInput = addCardPopup.querySelector('.popup__input_type_link');
 const addCardForm = addCardPopup.querySelector('.popup__container_type_form');
 
-const cardTemplate = document.querySelector('#cardTemplate').content;
 const cardsContainer = document.querySelector('.cards');
 
-const popups = document.querySelectorAll('.popup');
-
 const root = document.querySelector('.main');
+
 
 function handleKeyDown(evt) {
   if (evt.key === 'Escape') {
@@ -71,61 +71,24 @@ function handleEditProfileFormSubmit(evt) {
   closePopup(editProfilePopup);
 }
 
-function showCard(cardElement, cardImage) {
-  cardPreviewImage.src = cardImage.src;
-  cardPreviewImage.alt = cardImage.alt;
+function openImagePopup(link, name) {
+  cardPreviewImage.src = link;
+  cardPreviewImage.alt = name;
 
-  const cardTitle = cardElement.querySelector('.card__title');
-  cardPreviewDescription.textContent = cardTitle.textContent;
+  cardPreviewDescription.textContent = name;
 
   showPopup(cardPreviewPopup);
 }
 
-function handleCardLikeButtonClick(evt) {
-  evt.target.classList.toggle('card__like-button_active');
-}
-
-function handleCardRemoveButtonClick(evt) {
-  const cardElement = evt.target.closest('.card');
-  removeCard(cardElement);
-}
-
-function handleCardImageClick(evt) {
-  const cardElement = evt.target.closest('.card');
-  showCard(cardElement, evt.target);
-}
-
-function removeCard(cardElement) {
-  const cardImage = cardElement.querySelector('.card__image');
-  cardImage.removeEventListener('click', handleCardImageClick);
-
-  const likeButton = cardElement.querySelector('.card__like-button');
-  likeButton.removeEventListener('click', handleCardLikeButtonClick);
-
-  const removeButton = cardElement.querySelector('.card__remove-button');
-  removeButton.removeEventListener('click', handleCardRemoveButtonClick);
-
-  cardElement.remove();
-}
-
 function createCard(name, imageUrl) {
-  const result = cardTemplate.cloneNode(true);
+  const cardData = {
+    name: name,
+    link: imageUrl
+  }
 
-  const cardTitle = result.querySelector('.card__title');
-  cardTitle.textContent = name;
+  const card = new Card('#card-template', cardData, openImagePopup);
 
-  const cardImage = result.querySelector('.card__image');
-  cardImage.src = imageUrl;
-  cardImage.alt = name;
-  cardImage.addEventListener('click', handleCardImageClick);
-
-  const likeButton = result.querySelector('.card__like-button');
-  likeButton.addEventListener('click', handleCardLikeButtonClick);
-
-  const removeButton = result.querySelector('.card__remove-button');
-  removeButton.addEventListener('click', handleCardRemoveButtonClick);
-
-  return result;
+  return card.getElement();
 }
 
 function addCard(name, imageUrl) {
