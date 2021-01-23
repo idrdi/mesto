@@ -2,6 +2,7 @@ import {
   initialCards
 } from './initialCards.js';
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 const editProfileButton = document.querySelector('.profile__edit-button');
 const profileNameElement = document.querySelector('.profile__name');
@@ -122,6 +123,24 @@ function addInitialCards() {
   initialCards.forEach(cardInfo => addCard(cardInfo.name, cardInfo.link));
 }
 
+function enableValidation(config) {
+  const forms = document.querySelectorAll(config.formSelector);
+  forms.forEach(form => {
+    const formValidator = new FormValidator(config, form);
+    formValidator.enableValidation();
+  });
+}
+
+const validationConfig = {
+  formSelector: '.popup__container_type_form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  animatedButtonClass: 'animated-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_state_invalid',
+  errorClass: 'popup__error'
+};
+
 editProfileButton.addEventListener('click', showEditProfilePopup);
 closeEditProfilePopupButton.addEventListener('click', () => closePopup(editProfilePopup));
 editProfileForm.addEventListener('submit', handleEditProfileFormSubmit);
@@ -135,3 +154,5 @@ addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 addInitialCards();
 
 updateProfileDataOnEditForm();
+
+enableValidation(validationConfig);
