@@ -1,3 +1,6 @@
+import {
+  initialCards
+} from './initialCards.js';
 import Card from './Card.js';
 
 const editProfileButton = document.querySelector('.profile__edit-button');
