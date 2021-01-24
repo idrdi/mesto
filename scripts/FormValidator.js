@@ -7,17 +7,24 @@ export default class FormValidator {
   enableValidation() {
     this._form.addEventListener('submit', (evt) => evt.preventDefault());
     this._submitButton = this._form.querySelector(this._config.submitButtonSelector);
+    this._inputs = this._form.querySelectorAll(this._config.inputSelector);
     this._setEventListeners();
-    this._setSubmitButtonState(this._form.checkValidity())
+    this._setSubmitButtonState();
+  }
+
+  reset() {
+    this._inputs.forEach((input) => {
+      this._resetError(input);
+    });
+
+    this._setSubmitButtonState();
   }
 
   _setEventListeners() {
-    const inputs = this._form.querySelectorAll(this._config.inputSelector);
-
-    inputs.forEach((input) => {
+    this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._validateInput(input);
-        this._setSubmitButtonState(this._form.checkValidity());
+        this._setSubmitButtonState();
       });
     });
   }
@@ -42,10 +49,11 @@ export default class FormValidator {
     input.classList.remove(this._config.inputErrorClass);
   }
 
-  _setSubmitButtonState(isActive) {
+  _setSubmitButtonState() {
+    const isFormValid = this._form.checkValidity();
     const button = this._submitButton;
     const config = this._config;
-    if (isActive) {
+    if (isFormValid) {
       button.classList.remove(config.inactiveButtonClass);
       button.classList.add(config.animatedButtonClass);
       button.disabled = false;
