@@ -66,9 +66,7 @@ function updateProfileDataOnEditForm() {
   aboutInput.value = profileAboutElement.textContent;
 }
 
-function handleEditProfileFormSubmit(evt) {
-  evt.preventDefault();
-
+function handleEditProfileFormSubmit() {
   profileNameElement.textContent = usernameInput.value;
   profileAboutElement.textContent = aboutInput.value;
 
@@ -101,9 +99,7 @@ function addCard(name, imageUrl) {
   cardsContainer.prepend(cardElement);
 }
 
-function handleAddCardFormSubmit(evt) {
-  evt.preventDefault();
-
+function handleAddCardFormSubmit() {
   addCard(cardNameInput.value, cardLinkInput.value);
 
   addCardForm.reset();
@@ -123,14 +119,6 @@ function addInitialCards() {
   initialCards.forEach(cardInfo => addCard(cardInfo.name, cardInfo.link));
 }
 
-function enableValidation(config) {
-  const forms = document.querySelectorAll(config.formSelector);
-  forms.forEach(form => {
-    const formValidator = new FormValidator(config, form);
-    formValidator.enableValidation();
-  });
-}
-
 const validationConfig = {
   formSelector: '.popup__container_type_form',
   inputSelector: '.popup__input',
@@ -145,14 +133,18 @@ editProfileButton.addEventListener('click', showEditProfilePopup);
 closeEditProfilePopupButton.addEventListener('click', () => closePopup(editProfilePopup));
 editProfileForm.addEventListener('submit', handleEditProfileFormSubmit);
 
+const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
+editProfileFormValidator.enableValidation();
+
 closeCardPreviewPopupButton.addEventListener('click', () => closePopup(cardPreviewPopup));
 
 addCardButton.addEventListener('click', () => showPopup(addCardPopup));
 closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
 addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 
+const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
+addCardFormValidator.enableValidation();
+
 addInitialCards();
 
 updateProfileDataOnEditForm();
-
-enableValidation(validationConfig);
