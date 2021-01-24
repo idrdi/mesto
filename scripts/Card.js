@@ -57,10 +57,7 @@ export default class Card {
   }
 
   _handleRemoveButtonClick = () => {
-    this._imageElement.removeEventListener('click', this._handleImageClick);
-    this._likeButtonElement.removeEventListener('click', this._handleLikeClick);
-    this._removeButtonElement.removeEventListener('click', this._handleRemoveButtonClick);
-
     this._element.remove();
+    this._element = null;
   }
 }
