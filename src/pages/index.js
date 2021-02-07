@@ -5,6 +5,7 @@ import {
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
 
 const validationConfig = {
   formSelector: '.popup__container_type_form',
@@ -36,7 +37,6 @@ const addCardButton = document.querySelector('.profile__add-button');
 
 const addCardPopup = document.querySelector('.add-card-popup');
 const closeAddCardPopupButton = addCardPopup.querySelector('.popup__close-button');
-const submitAddCardPopupButton = addCardPopup.querySelector('.popup__submit-button');
 const cardNameInput = addCardPopup.querySelector('.popup__input_type_name');
 const cardLinkInput = addCardPopup.querySelector('.popup__input_type_link');
 const addCardForm = addCardPopup.querySelector('.popup__container_type_form');
@@ -113,22 +113,21 @@ function createCard(name, imageUrl) {
   return card.getElement();
 }
 
-function addCard(name, imageUrl) {
-  const cardElement = createCard(name, imageUrl);
-
-  cardsContainer.prepend(cardElement);
-}
+var cardList = new Section({
+  items: initialCards,
+  renderer: item => {
+    const cardElement = createCard(item.name, item.link);
+    cardList.addItem(cardElement);
+  }
+}, '.cards');
 
 function handleAddCardFormSubmit() {
-  addCard(cardNameInput.value, cardLinkInput.value);
+  const cardElement = createCard(cardNameInput.value, cardLinkInput.value);
+  cardList.addItem(cardElement);
 
   addCardForm.reset();
 
   closePopup(addCardPopup);
-}
-
-function addInitialCards() {
-  initialCards.forEach(cardInfo => addCard(cardInfo.name, cardInfo.link));
 }
 
 editProfileButton.addEventListener('click', showEditProfilePopup);
@@ -141,7 +140,7 @@ addCardButton.addEventListener('click', showAddCardPopup);
 closeAddCardPopupButton.addEventListener('click', () => closePopup(addCardPopup));
 addCardForm.addEventListener('submit', handleAddCardFormSubmit);
 
-addInitialCards();
+cardList.renderItems();
 
 updateProfileDataOnEditForm();
 
