@@ -4,6 +4,10 @@ export default class Card {
     this._name = data.name;
     this._link = data.link;
     this.onImageClick = onImageClick;
+
+    this._handleImageClick = this._handleImageClick.bind(this);
+    this._handleLikeClick = this._handleLikeClick.bind(this);
+    this._handleRemoveButtonClick = this._handleRemoveButtonClick.bind(this);
   }
 
   getElement() {
@@ -48,15 +52,15 @@ export default class Card {
     this._removeButtonElement.addEventListener('click', this._handleRemoveButtonClick);
   }
 
-  _handleImageClick = () => {
+  _handleImageClick() {
     this.onImageClick(this._link, this._name);
   }
 
-  _handleLikeClick = () => {
+  _handleLikeClick() {
     this._likeButtonElement.classList.toggle('card__like-button_active');
   }
 
-  _handleRemoveButtonClick = () => {
+  _handleRemoveButtonClick() {
     this._element.remove();
     this._element = null;
   }
