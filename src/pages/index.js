@@ -115,10 +115,7 @@ function createCard(name, imageUrl) {
 
 var cardList = new Section({
   items: initialCards,
-  renderer: item => {
-    const cardElement = createCard(item.name, item.link);
-    cardList.addItem(cardElement);
-  }
+  renderer: item => createCard(item.name, item.link)
 }, '.cards');
 
 function handleAddCardFormSubmit() {
