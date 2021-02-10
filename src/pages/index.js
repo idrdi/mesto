@@ -14,7 +14,7 @@ import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 
-var userInfo = new UserInfo('.profile__name', '.profile__about');
+const userInfo = new UserInfo('.profile__name', '.profile__about');
 
 const imagePopup = new PopupWithImage('.card-preview-popup');
 imagePopup.setEventListeners();
@@ -31,7 +31,7 @@ function createCard(name, imageUrl) {
 }
 
 // Initialize add card popup
-var cardList = new Section({
+const cardList = new Section({
   items: initialCards,
   renderer: item => createCard(item.name, item.link)
 }, '.cards');
