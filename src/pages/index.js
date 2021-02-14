@@ -1,7 +1,7 @@
 import './index.css';
 
 import {
-  initialCards,
+  apiConfig,
   validationConfig,
   editProfileButton,
   addCardButton
@@ -13,6 +13,9 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
+import Api from '../components/Api';
+
+const api = new Api(apiConfig);
 
 const userInfo = new UserInfo('.profile__name', '.profile__about');
 
@@ -31,8 +34,8 @@ function createCard(name, imageUrl) {
 }
 
 // Initialize add card popup
+
 const cardList = new Section({
-  items: initialCards,
   renderer: item => createCard(item.name, item.link)
 }, '.cards');
 
@@ -80,4 +83,6 @@ editProfileButton.addEventListener('click', () => {
 });
 
 //Render initial cards
-cardList.renderItems();
+api.getCards()
+  .then(data => cardList.renderItems(data))
+  .catch(err => console.log(err));
