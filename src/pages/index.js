@@ -82,7 +82,12 @@ editProfileButton.addEventListener('click', () => {
   editProfilePopup.open();
 });
 
+//Load user info
+api.getMe()
+  .then(data => userInfo.setUserInfo(data.name, data.about))
+  .catch(console.log)
+
 //Render initial cards
 api.getCards()
   .then(data => cardList.renderItems(data))
-  .catch(err => console.log(err));
+  .catch(console.log);

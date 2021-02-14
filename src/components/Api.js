@@ -5,10 +5,20 @@ export default class Api {
     this._groupId = options.groupId;
   }
 
+  getMe() {
+    return fetch(`${this._getUsersUrl()}/me`, {
+      headers: this._headers
+    }).then(this._handleResponse);
+  }
+
   getCards() {
     return fetch(this._getCardsUrl(), {
       headers: this._headers
-    }).then(res => this._handleResponse(res));
+    }).then(this._handleResponse);
+  }
+
+  _getUsersUrl() {
+    return `${this._getBaseUrl()}/users`;
   }
 
   _getCardsUrl() {
@@ -24,6 +34,6 @@ export default class Api {
       return res.json();
     }
 
-    return Promise.reject(`Произошла ошибка при выполнеии запроса. ${res.status}`);
+    return Promise.reject(`Произошла ошибка при выполнеии запроса. ${res.status} ${res.statusText}`);
   }
 }
