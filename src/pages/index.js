@@ -17,7 +17,11 @@ import Api from '../components/Api';
 
 const api = new Api(apiConfig);
 
-const userInfo = new UserInfo('.profile__name', '.profile__about');
+const userInfo = new UserInfo({
+  usernameSelector: '.profile__name',
+  aboutSelector: '.profile__about',
+  avatarSelector: '.profile__avatar'
+});
 
 const imagePopup = new PopupWithImage('.card-preview-popup');
 imagePopup.setEventListeners();
@@ -58,7 +62,10 @@ addCardButton.addEventListener('click', () => {
 
 // Initialize edit profile popup
 const editProfilePopup = new PopupWithForm({
-  onSubmit: (values) => userInfo.setUserInfo(values.username, values.about)
+  onSubmit: (values) => userInfo.setUserInfo({
+    name: values.username,
+    about: values.about
+  })
 }, '.edit-profile-popup');
 
 editProfilePopup.setEventListeners();
@@ -69,7 +76,7 @@ const aboutInput = editProfileForm.querySelector('.popup__input_type_about');
 
 function updateProfileDataOnEditForm() {
   const user = userInfo.getUserInfo();
-  usernameInput.value = user.username;
+  usernameInput.value = user.name;
   aboutInput.value = user.about;
 }
 
@@ -84,7 +91,7 @@ editProfileButton.addEventListener('click', () => {
 
 //Load user info
 api.getMe()
-  .then(data => userInfo.setUserInfo(data.name, data.about))
+  .then(data => userInfo.setUserInfo(data))
   .catch(console.log)
 
 //Render initial cards
