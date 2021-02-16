@@ -47,6 +47,7 @@ const addCardPopup = new PopupWithForm({
   onSubmit: (values) => {
     const cardElement = createCard(values.name, values.link);
     cardList.addItem(cardElement);
+    addCardPopup.close();
   }
 }, '.add-card-popup');
 
@@ -62,10 +63,19 @@ addCardButton.addEventListener('click', () => {
 
 // Initialize edit profile popup
 const editProfilePopup = new PopupWithForm({
-  onSubmit: (values) => userInfo.setUserInfo({
-    name: values.username,
-    about: values.about
-  })
+  onSubmit: (values) => {
+    editProfilePopup.getSubmitButton().textContent = 'Сохранение...'
+    api.updateProfile({
+        name: values.username,
+        about: values.about
+      })
+      .then(data => {
+        userInfo.setUserInfo(data);
+        editProfilePopup.close();
+      })
+      .catch(console.log)
+      .finally(() => editProfilePopup.getSubmitButton().textContent = 'Сохранить');
+  }
 }, '.edit-profile-popup');
 
 editProfilePopup.setEventListeners();
@@ -90,7 +100,7 @@ editProfileButton.addEventListener('click', () => {
 });
 
 //Load user info
-api.getMe()
+api.getProfile()
   .then(data => userInfo.setUserInfo(data))
   .catch(console.log)
 

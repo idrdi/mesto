@@ -5,9 +5,19 @@ export default class Api {
     this._groupId = options.groupId;
   }
 
-  getMe() {
+  getProfile() {
     return fetch(`${this._getUsersUrl()}/me`, {
       headers: this._headers
+    }).then(this._handleResponse);
+  }
+
+  updateProfile(data) {
+    return fetch(`${this._getUsersUrl()}/me`, {
+      method: 'PATCH',
+      headers: Object.assign(this._headers, {
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify(data)
     }).then(this._handleResponse);
   }
 
