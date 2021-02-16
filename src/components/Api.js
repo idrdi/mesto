@@ -27,6 +27,16 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
+  addCard(data) {
+    return fetch(this._getCardsUrl(), {
+      method: 'POST',
+      headers: Object.assign(this._headers, {
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify(data)
+    }).then(this._handleResponse);
+  }
+
   _getUsersUrl() {
     return `${this._getBaseUrl()}/users`;
   }

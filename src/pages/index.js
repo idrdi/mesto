@@ -45,9 +45,15 @@ const cardList = new Section({
 
 const addCardPopup = new PopupWithForm({
   onSubmit: (values) => {
-    const cardElement = createCard(values.name, values.link);
-    cardList.addItem(cardElement);
-    addCardPopup.close();
+    addCardPopup.getSubmitButton().textContent = 'Создание...'
+    api.addCard(values)
+      .then(data => {
+        const cardElement = createCard(data.name, data.link);
+        cardList.addItem(cardElement);
+        addCardPopup.close();
+      })
+      .catch(console.log)
+      .finally(() => addCardPopup.getSubmitButton().textContent = 'Создать');
   }
 }, '.add-card-popup');
 
@@ -106,5 +112,5 @@ api.getProfile()
 
 //Render initial cards
 api.getCards()
-  .then(data => cardList.renderItems(data))
+  .then(data => cardList.renderItems(data.reverse()))
   .catch(console.log);
