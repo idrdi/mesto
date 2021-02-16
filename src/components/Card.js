@@ -108,9 +108,9 @@ export default class Card {
 
   _like() {
     this._api.likeCard(this._id)
-      .then(() => {
+      .then((data) => {
         this._setLikeButtonState(true);
-        this._updateLikesCount(this._likesCount + 1);
+        this._updateLikesCount(data.likes.length);
         this._isLiked = true;
       })
       .catch(console.log);
@@ -118,9 +118,9 @@ export default class Card {
 
   _removeLike() {
     this._api.removelike(this._id)
-      .then(() => {
+      .then((data) => {
         this._setLikeButtonState(false);
-        this._updateLikesCount(this._likesCount - 1);
+        this._updateLikesCount(data.likes.length);
         this._isLiked = false;
       })
       .catch(console.log);
