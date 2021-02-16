@@ -26,13 +26,8 @@ const userInfo = new UserInfo({
 const imagePopup = new PopupWithImage('.card-preview-popup');
 imagePopup.setEventListeners();
 
-function createCard(name, imageUrl) {
-  const cardData = {
-    name: name,
-    link: imageUrl
-  }
-
-  const card = new Card('#card-template', cardData, (link, name) => imagePopup.open(link, name));
+function createCard(data) {
+  const card = new Card('#card-template', data, (link, name) => imagePopup.open(link, name));
 
   return card.getElement();
 }
@@ -40,7 +35,7 @@ function createCard(name, imageUrl) {
 // Initialize add card popup
 
 const cardList = new Section({
-  renderer: item => createCard(item.name, item.link)
+  renderer: item => createCard(item)
 }, '.cards');
 
 const addCardPopup = new PopupWithForm({
@@ -48,7 +43,7 @@ const addCardPopup = new PopupWithForm({
     addCardPopup.getSubmitButton().textContent = 'Создание...'
     api.addCard(values)
       .then(data => {
-        const cardElement = createCard(data.name, data.link);
+        const cardElement = createCard(data);
         cardList.addItem(cardElement);
         addCardPopup.close();
       })
