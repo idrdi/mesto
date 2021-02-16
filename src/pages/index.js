@@ -4,6 +4,7 @@ import {
   apiConfig,
   validationConfig,
   editProfileButton,
+  editAvatarButton,
   addCardButton
 } from '../utils/constants.js';
 
@@ -81,6 +82,34 @@ addCardFormValidator.enableValidation();
 addCardButton.addEventListener('click', () => {
   addCardFormValidator.reset();
   addCardPopup.open();
+});
+
+// Initialize edit avatar popup
+
+const editAvatarPopup = new PopupWithForm({
+  popupSelector: '.edit-avatar-popup',
+  onSubmit: (values) => {
+    editAvatarPopup.getSubmitButton().textContent = 'Сохранение...'
+    api.updateAvatar({
+        avatar: values.link
+      })
+      .then(data => {
+        userInfo.setUserInfo(data);
+        editAvatarPopup.close();
+      })
+      .catch(console.log)
+      .finally(() => editAvatarPopup.getSubmitButton().textContent = 'Сохранить');
+  }
+});
+editAvatarPopup.setEventListeners();
+
+const editAvatarForm = editAvatarPopup.getForm();
+const editAvatarFormValidator = new FormValidator(validationConfig, editAvatarForm);
+editAvatarFormValidator.enableValidation();
+
+editAvatarButton.addEventListener('click', () => {
+  editAvatarFormValidator.reset();
+  editAvatarPopup.open();
 });
 
 // Initialize edit profile popup

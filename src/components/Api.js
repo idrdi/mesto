@@ -21,6 +21,16 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
+  updateAvatar(data) {
+    return fetch(`${this._getUsersUrl()}/me/avatar`, {
+      method: 'PATCH',
+      headers: Object.assign(this._headers, {
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify(data)
+    }).then(this._handleResponse);
+  }
+
   getCards() {
     return fetch(this._getCardsUrl(), {
       headers: this._headers
