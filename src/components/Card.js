@@ -1,16 +1,19 @@
 export default class Card {
-  constructor(cardSelector, data, onImageClick) {
+  constructor(data, {
+    cardSelector,
+    onImageClick,
+    onRemoveButtonClick
+  }) {
     this._cardSelector = cardSelector;
     this._id = data._id;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
-    console.log(this._likes);
-    this.onImageClick = onImageClick;
+    this._onImageClick = onImageClick;
+    this._onRemoveButtonClick = onRemoveButtonClick;
 
     this._handleImageClick = this._handleImageClick.bind(this);
     this._handleLikeClick = this._handleLikeClick.bind(this);
-    this._handleRemoveButtonClick = this._handleRemoveButtonClick.bind(this);
   }
 
   getElement() {
@@ -54,18 +57,18 @@ export default class Card {
   _setEventListeners() {
     this._imageElement.addEventListener('click', this._handleImageClick);
     this._likeButtonElement.addEventListener('click', this._handleLikeClick);
-    this._removeButtonElement.addEventListener('click', this._handleRemoveButtonClick);
+    this._removeButtonElement.addEventListener('click', this._onRemoveButtonClick);
   }
 
   _handleImageClick() {
-    this.onImageClick(this._link, this._name);
+    this._onImageClick(this._link, this._name);
   }
 
   _handleLikeClick() {
     this._likeButtonElement.classList.toggle('card__like-button_active');
   }
 
-  _handleRemoveButtonClick() {
+  remove() {
     this._element.remove();
     this._element = null;
   }

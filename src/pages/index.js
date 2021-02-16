@@ -26,8 +26,26 @@ const userInfo = new UserInfo({
 const imagePopup = new PopupWithImage('.card-preview-popup');
 imagePopup.setEventListeners();
 
+const removeCardPopup = new PopupWithForm({
+  popupSelector: '.remove-card-popup'
+});
+removeCardPopup.setEventListeners();
+
+function handleRemoveCardButtonClick(card) {
+  removeCardPopup.onSubmit = () => {
+    card.remove();
+    removeCardPopup.close();
+    removeCardPopup.onSubmit = null;
+  }
+  removeCardPopup.open();
+}
+
 function createCard(data) {
-  const card = new Card('#card-template', data, (link, name) => imagePopup.open(link, name));
+  const card = new Card(data, {
+    cardSelector: '#card-template',
+    onImageClick: (link, name) => imagePopup.open(link, name),
+    onRemoveButtonClick: () => handleRemoveCardButtonClick(card)
+  });
 
   return card.getElement();
 }
@@ -39,6 +57,7 @@ const cardList = new Section({
 }, '.cards');
 
 const addCardPopup = new PopupWithForm({
+  popupSelector: '.add-card-popup',
   onSubmit: (values) => {
     addCardPopup.getSubmitButton().textContent = 'Создание...'
     api.addCard(values)
@@ -50,7 +69,7 @@ const addCardPopup = new PopupWithForm({
       .catch(console.log)
       .finally(() => addCardPopup.getSubmitButton().textContent = 'Создать');
   }
-}, '.add-card-popup');
+});
 
 addCardPopup.setEventListeners();
 
@@ -64,6 +83,7 @@ addCardButton.addEventListener('click', () => {
 
 // Initialize edit profile popup
 const editProfilePopup = new PopupWithForm({
+  popupSelector: '.edit-profile-popup',
   onSubmit: (values) => {
     editProfilePopup.getSubmitButton().textContent = 'Сохранение...'
     api.updateProfile({
@@ -77,7 +97,7 @@ const editProfilePopup = new PopupWithForm({
       .catch(console.log)
       .finally(() => editProfilePopup.getSubmitButton().textContent = 'Сохранить');
   }
-}, '.edit-profile-popup');
+});
 
 editProfilePopup.setEventListeners();
 
