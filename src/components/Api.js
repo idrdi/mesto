@@ -44,6 +44,20 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
+  likeCard(id) {
+    return fetch(`${this._getCardsUrl()}/likes/${id}`, {
+      method: 'PUT',
+      headers: this._headers
+    }).then(this._handleResponse);
+  }
+
+  removelike(id) {
+    return fetch(`${this._getCardsUrl()}/likes/${id}`, {
+      method: 'DELETE',
+      headers: this._headers
+    }).then(this._handleResponse);
+  }
+
   _getUsersUrl() {
     return `${this._getBaseUrl()}/users`;
   }

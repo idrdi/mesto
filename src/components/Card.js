@@ -38,7 +38,10 @@ export default class Card {
     this._likeCounterElement = element.querySelector('.card__like-counter');
     this._removeButtonElement = element.querySelector('.card__remove-button');
 
+    this._isLiked = this._likes.find(item => item._id === this._currentUserId);
+
     this._setRemoveButtonState(this._isOwned());
+    this._setLikeButtonState(this._isLiked);
     this._fillData();
     this._setEventListeners();
   }
@@ -65,11 +68,24 @@ export default class Card {
     }
   }
 
+  _setLikeButtonState(isActive) {
+    if (isActive) {
+      this._likeButtonElement.classList.add('card__like-button_active');
+    } else {
+      this._likeButtonElement.classList.remove('card__like-button_active');
+    }
+  }
+
   _fillData() {
     this._titleElement.textContent = this._name;
     this._imageElement.src = this._link;
     this._imageElement.alt = this._name;
-    this._likeCounterElement.textContent = this._likes.length;
+    this._updateLikesCount(this._likes.length);
+  }
+
+  _updateLikesCount(count) {
+    this._likesCount = count;
+    this._likeCounterElement.textContent = this._likesCount;
   }
 
   _setEventListeners() {
@@ -83,7 +99,31 @@ export default class Card {
   }
 
   _handleLikeClick() {
-    this._likeButtonElement.classList.toggle('card__like-button_active');
+    if (this._isLiked) {
+      this._removeLike();
+    } else {
+      this._like();
+    }
+  }
+
+  _like() {
+    this._api.likeCard(this._id)
+      .then(() => {
+        this._setLikeButtonState(true);
+        this._updateLikesCount(this._likesCount + 1);
+        this._isLiked = true;
+      })
+      .catch(console.log);
+  }
+
+  _removeLike() {
+    this._api.removelike(this._id)
+      .then(() => {
+        this._setLikeButtonState(false);
+        this._updateLikesCount(this._likesCount - 1);
+        this._isLiked = false;
+      })
+      .catch(console.log);
   }
 
   remove() {
