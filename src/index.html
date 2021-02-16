@@ -14,7 +14,9 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+        <button class="profile__avatar-button" type="button" aria-label="Редактирвать аватар">
+          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+        </button>
         <div class="profile__info">
           <h1 class="profile__name"></h1>
           <button class="profile__edit-button animated-button" type="button" aria-label="Редактировать"></button>
@@ -75,6 +77,18 @@
       <button class="popup__close-button animated-button" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Вы уверены?</h2>
       <button class="popup__submit-button animated-button" type="submit">Да</button>
+    </form>
+  </div>
+  <div class="popup edit-avatar-popup">
+    <form class="popup__container popup__container_type_form" name="edit-avatar">
+      <button class="popup__close-button animated-button" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <label class="popup__field">
+        <input id="link" type="url" name="link" value="" placeholder="Ссылка на аватар"
+          class="popup__input popup__input_type_link" required>
+        <span id="link-error" class="popup__error"></span>
+      </label>
+      <button class="popup__submit-button animated-button" type="submit">Сохранить</button>
     </form>
   </div>
   <template id="card-template">
