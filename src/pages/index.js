@@ -43,6 +43,8 @@ function handleRemoveCardButtonClick(card) {
 function createCard(data) {
   const card = new Card(data, {
     cardSelector: '#card-template',
+    currentUserId: userInfo.getUserId(),
+    api: api,
     onImageClick: (link, name) => imagePopup.open(link, name),
     onRemoveButtonClick: () => handleRemoveCardButtonClick(card)
   });

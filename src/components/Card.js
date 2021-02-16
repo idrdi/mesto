@@ -1,6 +1,8 @@
 export default class Card {
   constructor(data, {
     cardSelector,
+    currentUserId,
+    api,
     onImageClick,
     onRemoveButtonClick
   }) {
@@ -9,6 +11,9 @@ export default class Card {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._ownerId = data.owner._id;
+    this._api = api;
+    this._currentUserId = currentUserId;
     this._onImageClick = onImageClick;
     this._onRemoveButtonClick = onRemoveButtonClick;
 
@@ -33,6 +38,7 @@ export default class Card {
     this._likeCounterElement = element.querySelector('.card__like-counter');
     this._removeButtonElement = element.querySelector('.card__remove-button');
 
+    this._setRemoveButtonState(this._isOwned());
     this._fillData();
     this._setEventListeners();
   }
@@ -45,6 +51,18 @@ export default class Card {
       .cloneNode(true);
 
     return cardElement;
+  }
+
+  _isOwned() {
+    return this._currentUserId == this._ownerId;
+  }
+
+  _setRemoveButtonState(isVisible) {
+    if (isVisible) {
+      this._removeButtonElement.classList.add('card__remove-button_visible');
+    } else {
+      this._removeButtonElement.classList.remove('card__remove-button_visible');
+    }
   }
 
   _fillData() {
@@ -69,7 +87,15 @@ export default class Card {
   }
 
   remove() {
-    this._element.remove();
-    this._element = null;
+    if (!this._isOwned()) {
+      return;
+    }
+
+    this._api.removeCard(this._id)
+      .then(() => {
+        this._element.remove();
+        this._element = null;
+      })
+      .catch(console.log);
   }
 }
