@@ -104,13 +104,7 @@ addCardPopup.setEventListeners();
 const addCardFormValidator = new FormValidator(validationConfig, addCardPopup.getForm());
 addCardFormValidator.enableValidation();
 
-addCardButton.addEventListener('click', () => {
-  addCardFormValidator.reset();
-  addCardPopup.open();
-});
-
 // Initialize edit avatar popup
-
 const editAvatarPopup = new PopupWithForm({
   popupSelector: '.edit-avatar-popup',
   handleSubmit: (values) => {
@@ -131,11 +125,6 @@ editAvatarPopup.setEventListeners();
 const editAvatarForm = editAvatarPopup.getForm();
 const editAvatarFormValidator = new FormValidator(validationConfig, editAvatarForm);
 editAvatarFormValidator.enableValidation();
-
-editAvatarButton.addEventListener('click', () => {
-  editAvatarFormValidator.reset();
-  editAvatarPopup.open();
-});
 
 // Initialize edit profile popup
 const editProfilePopup = new PopupWithForm({
@@ -170,18 +159,27 @@ function updateProfileDataOnEditForm() {
 const editProfileFormValidator = new FormValidator(validationConfig, editProfileForm);
 editProfileFormValidator.enableValidation();
 
-editProfileButton.addEventListener('click', () => {
-  updateProfileDataOnEditForm();
-  editProfileFormValidator.reset();
-  editProfilePopup.open();
-});
 
-//Load user info
-api.getProfile()
-  .then(data => userInfo.setUserInfo(data))
-  .catch(console.log)
+Promise.all([api.getProfile(), api.getCards()])
+  .then(([profile, cards]) => {
+    userInfo.setUserInfo(profile);
 
-//Render initial cards
-api.getCards()
-  .then(data => cardList.renderItems(data.reverse()))
+    cardList.renderItems(cards.reverse());
+
+    addCardButton.addEventListener('click', () => {
+      addCardFormValidator.reset();
+      addCardPopup.open();
+    });
+
+    editAvatarButton.addEventListener('click', () => {
+      editAvatarFormValidator.reset();
+      editAvatarPopup.open();
+    });
+
+    editProfileButton.addEventListener('click', () => {
+      updateProfileDataOnEditForm();
+      editProfileFormValidator.reset();
+      editProfilePopup.open();
+    });
+  })
   .catch(console.log);
