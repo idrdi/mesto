@@ -34,20 +34,45 @@ removeCardPopup.setEventListeners();
 
 function handleRemoveCardButtonClick(card) {
   removeCardPopup.handleSubmit = () => {
-    card.remove();
-    removeCardPopup.close();
-    removeCardPopup.handleSubmit = null;
+    removeCardPopup.getSubmitButton().textContent = 'Удаление...'
+
+    api.removeCard(card.getId())
+      .then(() => {
+        card.remove();
+        removeCardPopup.close();
+        removeCardPopup.handleSubmit = null;
+      })
+      .catch(console.log)
+      .finally(() => removeCardPopup.getSubmitButton().textContent = 'Да');
   }
+
   removeCardPopup.open();
+}
+
+function handleLike(card) {
+  api.likeCard(card.getId())
+    .then((data) => {
+      card.like(data.likes.length);
+    })
+    .catch(console.log);
+}
+
+function handleRemoveLike(card) {
+  api.removeLike(card.getId())
+    .then((data) => {
+      card.removeLike(data.likes.length);
+    })
+    .catch(console.log);
 }
 
 function createCard(data) {
   const card = new Card(data, {
     cardSelector: '#card-template',
     currentUserId: userInfo.getUserId(),
-    api: api,
     handleImageClick: (link, name) => imagePopup.open(link, name),
-    handleRemoveButtonClick: () => handleRemoveCardButtonClick(card)
+    handleRemoveButtonClick: handleRemoveCardButtonClick,
+    handleLike: handleLike,
+    handleRemoveLike: handleRemoveLike
   });
 
   return card.getElement();

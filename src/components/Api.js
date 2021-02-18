@@ -61,7 +61,7 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  removelike(id) {
+  removeLike(id) {
     return fetch(`${this._getCardsUrl()}/likes/${id}`, {
       method: 'DELETE',
       headers: this._headers

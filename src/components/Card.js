@@ -2,9 +2,10 @@ export default class Card {
   constructor(data, {
     cardSelector,
     currentUserId,
-    api,
     handleImageClick,
-    handleRemoveButtonClick
+    handleRemoveButtonClick,
+    handleLike,
+    handleRemoveLike
   }) {
     this._cardSelector = cardSelector;
     this._id = data._id;
@@ -12,12 +13,18 @@ export default class Card {
     this._link = data.link;
     this._likes = data.likes;
     this._ownerId = data.owner._id;
-    this._api = api;
     this._currentUserId = currentUserId;
+
     this._handleImageClick = handleImageClick;
     this._handleRemoveButtonClick = handleRemoveButtonClick;
+    this._handleLike = handleLike;
+    this._handleRemoveLike = handleRemoveLike;
 
     this._handleLikeClick = this._handleLikeClick.bind(this);
+  }
+
+  getId() {
+    return this._id;
   }
 
   getElement() {
@@ -90,47 +97,31 @@ export default class Card {
   _setEventListeners() {
     this._imageElement.addEventListener('click', () => this._handleImageClick(this._link, this._name));
     this._likeButtonElement.addEventListener('click', this._handleLikeClick);
-    this._removeButtonElement.addEventListener('click', this._handleRemoveButtonClick);
+    this._removeButtonElement.addEventListener('click', () => this._handleRemoveButtonClick(this));
   }
 
   _handleLikeClick() {
     if (this._isLiked) {
-      this._removeLike();
+      this._handleRemoveLike(this);
     } else {
-      this._like();
+      this._handleLike(this);
     }
   }
 
-  _like() {
-    this._api.likeCard(this._id)
-      .then((data) => {
-        this._setLikeButtonState(true);
-        this._updateLikesCount(data.likes.length);
-        this._isLiked = true;
-      })
-      .catch(console.log);
+  like(likesCount) {
+    this._setLikeButtonState(true);
+    this._updateLikesCount(likesCount);
+    this._isLiked = true;
   }
 
-  _removeLike() {
-    this._api.removelike(this._id)
-      .then((data) => {
-        this._setLikeButtonState(false);
-        this._updateLikesCount(data.likes.length);
-        this._isLiked = false;
-      })
-      .catch(console.log);
+  removeLike(likesCount) {
+    this._setLikeButtonState(false);
+    this._updateLikesCount(likesCount);
+    this._isLiked = false;
   }
 
   remove() {
-    if (!this._isOwned()) {
-      return;
-    }
-
-    this._api.removeCard(this._id)
-      .then(() => {
-        this._element.remove();
-        this._element = null;
-      })
-      .catch(console.log);
+    this._element.remove();
+    this._element = null;
   }
 }
