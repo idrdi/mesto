@@ -3,8 +3,8 @@ export default class Card {
     cardSelector,
     currentUserId,
     api,
-    onImageClick,
-    onRemoveButtonClick
+    handleImageClick,
+    handleRemoveButtonClick
   }) {
     this._cardSelector = cardSelector;
     this._id = data._id;
@@ -14,10 +14,9 @@ export default class Card {
     this._ownerId = data.owner._id;
     this._api = api;
     this._currentUserId = currentUserId;
-    this._onImageClick = onImageClick;
-    this._onRemoveButtonClick = onRemoveButtonClick;
+    this._handleImageClick = handleImageClick;
+    this._handleRemoveButtonClick = handleRemoveButtonClick;
 
-    this._handleImageClick = this._handleImageClick.bind(this);
     this._handleLikeClick = this._handleLikeClick.bind(this);
   }
 
@@ -89,13 +88,9 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._imageElement.addEventListener('click', this._handleImageClick);
+    this._imageElement.addEventListener('click', () => this._handleImageClick(this._link, this._name));
     this._likeButtonElement.addEventListener('click', this._handleLikeClick);
-    this._removeButtonElement.addEventListener('click', this._onRemoveButtonClick);
-  }
-
-  _handleImageClick() {
-    this._onImageClick(this._link, this._name);
+    this._removeButtonElement.addEventListener('click', this._handleRemoveButtonClick);
   }
 
   _handleLikeClick() {

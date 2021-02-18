@@ -33,10 +33,10 @@ const removeCardPopup = new PopupWithForm({
 removeCardPopup.setEventListeners();
 
 function handleRemoveCardButtonClick(card) {
-  removeCardPopup.onSubmit = () => {
+  removeCardPopup.handleSubmit = () => {
     card.remove();
     removeCardPopup.close();
-    removeCardPopup.onSubmit = null;
+    removeCardPopup.handleSubmit = null;
   }
   removeCardPopup.open();
 }
@@ -46,8 +46,8 @@ function createCard(data) {
     cardSelector: '#card-template',
     currentUserId: userInfo.getUserId(),
     api: api,
-    onImageClick: (link, name) => imagePopup.open(link, name),
-    onRemoveButtonClick: () => handleRemoveCardButtonClick(card)
+    handleImageClick: (link, name) => imagePopup.open(link, name),
+    handleRemoveButtonClick: () => handleRemoveCardButtonClick(card)
   });
 
   return card.getElement();
@@ -61,7 +61,7 @@ const cardList = new Section({
 
 const addCardPopup = new PopupWithForm({
   popupSelector: '.add-card-popup',
-  onSubmit: (values) => {
+  handleSubmit: (values) => {
     addCardPopup.getSubmitButton().textContent = 'Создание...'
     api.addCard(values)
       .then(data => {
@@ -88,7 +88,7 @@ addCardButton.addEventListener('click', () => {
 
 const editAvatarPopup = new PopupWithForm({
   popupSelector: '.edit-avatar-popup',
-  onSubmit: (values) => {
+  handleSubmit: (values) => {
     editAvatarPopup.getSubmitButton().textContent = 'Сохранение...'
     api.updateAvatar({
         avatar: values.link
@@ -115,7 +115,7 @@ editAvatarButton.addEventListener('click', () => {
 // Initialize edit profile popup
 const editProfilePopup = new PopupWithForm({
   popupSelector: '.edit-profile-popup',
-  onSubmit: (values) => {
+  handleSubmit: (values) => {
     editProfilePopup.getSubmitButton().textContent = 'Сохранение...'
     api.updateProfile({
         name: values.username,
